@@ -2,28 +2,15 @@ using UnityEngine;
 
 public class ActivateChildrenButton : MonoBehaviour
 {
-    public GameObject parentObject; // The parent GameObject whose children will be affected
-
+    [SerializeField] private Ladder ladder; // The parent GameObject whose children will be affected
+    private const string PLAYER_TAG = "Player";
     // Method to enable components in all children
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(PLAYER_TAG))
         {
-            foreach (Transform child in parentObject.transform)
-            {
-                SpriteRenderer spriteRenderer = child.GetComponent<SpriteRenderer>();
-                BoxCollider2D boxCollider = child.GetComponent<BoxCollider2D>();
-
-                if (spriteRenderer != null)
-                {
-                    spriteRenderer.enabled = true;
-                }
-
-                if (boxCollider != null)
-                {
-                    boxCollider.enabled = true;
-                }
-            }
+           
+            ladder.TurnOnLadder();
         }        
     }
 }

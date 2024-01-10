@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour
 {
-    public float speed = 5.0f;
-    public float jumpForce = 10.0f;
+    [SerializeField] [Range(5f, 15f)] private float speed = 10.0f;
+    [SerializeField] [Range(1f, 20f)] private float jumpForce = 10.0f;
     private Rigidbody2D rb;
     protected bool isGrounded;
     public bool isClimbing;
@@ -14,7 +14,7 @@ public class BaseCharacter : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask groundLayer;
-
+    [SerializeField] [Range(1f, 2f)] private float userGravityScale = 1.5f;
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -43,7 +43,7 @@ public class BaseCharacter : MonoBehaviour
         }
         else
         {
-            rb.gravityScale = 1;
+            rb.gravityScale = userGravityScale;
         }
     }
 

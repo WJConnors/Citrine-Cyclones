@@ -8,8 +8,8 @@ public class Strong : BaseCharacter
     bool holding = false;
     GameObject heldObject;
     public float detectionRadius = 5f;
-    Vector2 holdPosition = new(1f, 1f);
-    public float throwForce = 12f;
+    [SerializeField] private Transform holdPosition; //a child object on the strong player
+    [SerializeField] [Range(5f, 18f)]private float throwForce = 12f;
     protected override void Update()
     {
         base.Update();
@@ -21,27 +21,46 @@ public class Strong : BaseCharacter
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
                 foreach (Collider2D collider in colliders)
                 {
-                    if (collider.gameObject.GetComponent<Pickable>() != null)
-                    {
-                        heldObject = collider.gameObject;
-                        holding = true;
-                        break;
-                    }
+
+                    var checkPickable = collider.gameObject.GetComponent<Pickable>();
+                    if (!checkPickable)
+                        return;
+
+                    SetHeldObject(checkPickable.gameObject);
+                    break;
+                    
                 }
             }
             else if (holding)
             {
-                heldObject.GetComponent<Rigidbody2D>().velocity = new Vector2(heldObject.GetComponent<Pickable>().speed, throwForce);
-                holding = false;
-                heldObject = null;
+                HandleThrow();
             }
 
         }
         else if (holding)
         {
-            heldObject.transform.position = transform.position + (Vector3)holdPosition;
+            heldObject.transform.position = holdPosition.position;
         }
 
+    }
+    private void SetHeldObject(GameObject newGo)
+    {
+        heldObject = newGo.gameObject;
+        holding = true;
+    }
+
+    private void HandleThrow()
+    {
+        
+       if (heldObject == null)
+        {
+            Debug.Log("picked up obj doesnt exist");
+            return;
+        }
+
+        heldObject.GetComponent<Pickable>().BeThrown(throwForce);
+        holding = false;
+        heldObject = null;
     }
 
     protected override float GetMoveInput()
