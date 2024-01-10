@@ -8,6 +8,7 @@ public class BaseCharacter : MonoBehaviour
     public float jumpForce = 10.0f;
     private Rigidbody2D rb;
     protected bool isGrounded;
+    public bool isClimbing;
 
     // Ground check variables
     public Transform groundCheck;
@@ -24,16 +25,25 @@ public class BaseCharacter : MonoBehaviour
         // Check if character is grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // Handle horizontal movement only if the character is grounded
-        if (isGrounded)
-        {
-            rb.velocity = new Vector2(GetMoveInput() * speed, rb.velocity.y);
-        }
+        rb.velocity = new Vector2(GetMoveInput() * speed, rb.velocity.y);
 
         // Handle jumping
         if (GetJumpInput() && isGrounded)
         {
             Jump();
+        }
+
+        if (isClimbing)
+        {
+            rb.gravityScale = 0;
+            if (GetJumpInput())
+            {
+                rb.velocity = new Vector2(rb.velocity.x, speed);
+            }
+        }
+        else
+        {
+            rb.gravityScale = 1;
         }
     }
 
