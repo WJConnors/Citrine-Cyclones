@@ -1,3 +1,4 @@
+using com.cyborgAssets.inspectorButtonPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,13 +27,23 @@ public class Ladder : MonoBehaviour
             collision.gameObject.GetComponent<BaseCharacter>().isClimbing = false;
         }
     }
-
+    [ProButton] //just for easy debugging 
     public void TurnOnLadder()
     {
         ladderCollider.enabled = true;
         foreach (var sprite in ladderSprites)
         {
             sprite.enabled = true;
+        }
+    }
+
+    [ProButton]
+    public void TurnOffLadder()
+    {
+        ladderCollider.enabled = false;
+        foreach (var sprite in ladderSprites)
+        {
+            sprite.enabled = false;
         }
     }
 }

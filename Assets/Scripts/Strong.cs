@@ -77,4 +77,11 @@ public class Strong : BaseCharacter
     {
         return Input.GetKeyDown(KeyCode.DownArrow);
     }
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position,  detectionRadius);
+    }
 }
