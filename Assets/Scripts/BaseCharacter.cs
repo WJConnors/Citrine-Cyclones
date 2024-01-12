@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BaseCharacter : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class BaseCharacter : MonoBehaviour
     public float groundCheckRadius;
     public LayerMask groundLayer;
     [SerializeField] [Range(1f, 2f)] private float userGravityScale = 1.5f;
+
+    [HideInInspector] public UnityEvent OnPlayerJump;
+
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -63,5 +68,6 @@ public class BaseCharacter : MonoBehaviour
     {
         // Apply jump force
         rb.velocity = new Vector2(GetMoveInput() * speed, jumpForce);
+        OnPlayerJump?.Invoke();
     }
 }
