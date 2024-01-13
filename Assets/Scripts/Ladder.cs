@@ -2,12 +2,15 @@ using com.cyborgAssets.inspectorButtonPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Ladder : MonoBehaviour
 {
     private const string PLAYER_TAG = "Player";
     public List<SpriteRenderer> ladderSprites;
     private BoxCollider2D ladderCollider;
+    [HideInInspector]public UnityEvent OnLadderOn;
+    [HideInInspector] public UnityEvent OnLadderOff;
     private void Awake()
     {
         ladderCollider = GetComponent<BoxCollider2D>();
@@ -35,6 +38,7 @@ public class Ladder : MonoBehaviour
         {
             sprite.enabled = true;
         }
+        OnLadderOn?.Invoke();
     }
 
     [ProButton]
@@ -45,5 +49,6 @@ public class Ladder : MonoBehaviour
         {
             sprite.enabled = false;
         }
+        OnLadderOff?.Invoke();
     }
 }

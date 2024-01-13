@@ -18,6 +18,7 @@ public class Strong : BaseCharacter
             
             if (!holding)
             {
+                /*
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
                 foreach (Collider2D collider in colliders)
                 {
@@ -29,7 +30,12 @@ public class Strong : BaseCharacter
                     SetHeldObject(checkPickable.gameObject);
                     break;
                     
-                }
+                }*/
+               var dp = FindObjectOfType<DetectPickable>();
+                if (dp == null)
+                    return;
+                if (dp.GetIsWithinRange())
+                    SetHeldObject(dp.PickubaleObj());
             }
             else if (holding)
             {
@@ -78,10 +84,5 @@ public class Strong : BaseCharacter
         return Input.GetKeyDown(KeyCode.DownArrow);
     }
 
-    void OnDrawGizmosSelected()
-    {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position,  detectionRadius);
-    }
+   
 }
