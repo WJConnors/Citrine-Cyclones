@@ -1088,6 +1088,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agile
       objectReference: {fileID: 0}
+    - target: {fileID: 5843485138480514941, guid: 4e16cf9571e9fb34683dfb69caa70a6a, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949829547913593434, guid: 4e16cf9571e9fb34683dfb69caa70a6a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
