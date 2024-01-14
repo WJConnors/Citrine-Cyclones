@@ -9,7 +9,7 @@ public class ExitPath : MonoBehaviour
     private const string PLAYER_TAG = "Player";
     private int playersInExit = 0;
     private const int PLAYERS_NEEDED_IN_EXIT = 2;
-
+    private int amtOfScenes = 4;
 
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -28,10 +28,11 @@ public class ExitPath : MonoBehaviour
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         currentScene++;
-        if(currentScene == SceneManager.sceneCount)
+        if(currentScene == amtOfScenes)
         {
             //no more next scene 
             //you win game
+            FindObjectOfType<EndGame>().ShowPanel();
         }
         SceneManager.LoadScene(currentScene);
     }
