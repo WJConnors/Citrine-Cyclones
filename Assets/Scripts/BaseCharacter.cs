@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class BaseCharacter : MonoBehaviour
 {
@@ -50,6 +51,12 @@ public class BaseCharacter : MonoBehaviour
         {
             rb.gravityScale = userGravityScale;
         }
+
+        if (transform.position.y < -20)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
     }
 
     protected virtual float GetMoveInput()
